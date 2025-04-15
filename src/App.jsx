@@ -4,9 +4,15 @@ import "./App.css"
 function App() {
   const [fact, setFact] = useState()
   const [image, setImage] = useState()
+  const [factError, setFactError] = useState()
   useEffect(()=>{
     fetch("https://catfact.ninja/fact")
-      .then(res => res.json())
+      .then(res => {
+        if(!res.ok){
+          setFactError("No se ha podido recuperar la cita")
+        }
+        return res.json()
+      })
       .then(data =>{
        const {fact }= data
         setFact(fact)})
@@ -16,7 +22,12 @@ function App() {
     if(!fact) return
     const firstWord = fact.split(" ")[0]
     fetch(`https://cataas.com/cat/says/${firstWord}?json=true`)
-    .then(res => res.json())
+    .then(res =>{
+      if(!res.ok){
+      setFactError("No se ha podido recuperar la cita")
+    }
+    return res.json()
+    })
     .then(response => {
       const { url } = response
       setImage(url)
