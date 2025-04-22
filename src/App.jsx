@@ -2,18 +2,8 @@ import { useEffect, useState } from "react"
 import "./App.css"
 import { getRandomFact } from "./services/facts"
 
-function App() {
-  const [fact, setFact] = useState()
+function useCatImage ({fact}){
   const [image, setImage] = useState()
-  const [factError, setFactError] = useState()
-
-
-
-  useEffect(()=>{
-    getRandomFact(setFact)
-    },[])
-
-  
   useEffect(()=>{
     if(!fact) return
     const firstWord = fact.split(" ")[0]
@@ -29,6 +19,20 @@ function App() {
       setImage(url)
     })
   }, [fact])
+  return {image}
+}
+
+
+function App() {
+  const [fact, setFact] = useState()
+  const [factError, setFactError] = useState()
+  const {image} = useCatImage({fact})
+
+  useEffect(()=>{
+    getRandomFact().then(setFact)
+    },[])
+
+  
 
   const handleClick = async ()=>{
     const newFact = await getRandomFact()
