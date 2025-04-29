@@ -1,26 +1,20 @@
-import { useEffect, useState } from "react"
 import "./App.css"
-import { getRandomFact } from "./services/facts"
-import { useCatImage } from "./hooks/useCatImage"
+import { useCatFact } from "./hooks/useCatFact"
+import { useCatImage} from "./hooks/useCatImage"
+import { useFactError } from "./hooks/useFactError"
 
 
 
 function App() {
-  const [fact, setFact] = useState()
-  const [factError, setFactError] = useState()
+  const {error: factError, setError: setFactError}= useFactError()
+
+  const {fact, getRandomFact} = useCatFact({setFactError})
   const {image} = useCatImage({fact, setFactError})
-
-  useEffect(()=>{
-    getRandomFact(setFactError).then(setFact)
-    },[])
-
   
-
-  const handleClick = async ()=>{
-    const newFact = await getRandomFact()
-    setFact(newFact)
+  const handleClick = () => {
+    setFactError(null)
+    getRandomFact()
   }
-
   return (
     <main>
       <h1>App Gatitos</h1>

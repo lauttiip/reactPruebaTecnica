@@ -16,14 +16,18 @@
   "eslintConfig": {
     "extends": "./node_modules/standard/esLintrc.json"
   },
-    "eslint.enable": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
-    },
-    "eslint.validate": ["javascript", "javascriptreact"]
-  ,  
+  "eslint.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact"
+  ],
   "devDependencies": {
     "@eslint/js": "^9.25.1",
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.3",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react-swc": "^3.8.0",
